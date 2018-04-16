@@ -8,20 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		184B1D50207C9ADA00C9F9F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B1D4F207C9ADA00C9F9F9 /* AppDelegate.swift */; };
-		184B1D52207C9ADA00C9F9F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B1D51207C9ADA00C9F9F9 /* ViewController.swift */; };
 		184B1D55207C9ADA00C9F9F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184B1D53207C9ADA00C9F9F9 /* Main.storyboard */; };
 		184B1D57207C9ADA00C9F9F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184B1D56207C9ADA00C9F9F9 /* Assets.xcassets */; };
 		184B1D5A207C9ADA00C9F9F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184B1D58207C9ADA00C9F9F9 /* LaunchScreen.storyboard */; };
+		184B1D65207C9B5B00C9F9F9 /* SGPageTitleViewConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B1D64207C9B5B00C9F9F9 /* SGPageTitleViewConfigure.swift */; };
+		184B1D67207C9B7100C9F9F9 /* SGPageTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B1D66207C9B7100C9F9F9 /* SGPageTitleView.swift */; };
+		184B1D69207C9BAF00C9F9F9 /* UIView+SGPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B1D68207C9BAF00C9F9F9 /* UIView+SGPagingView.swift */; };
+		1877C505207DA75800832ED0 /* SGPageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877C504207DA75800832ED0 /* SGPageContentView.swift */; };
+		1877C50A207DECDC00832ED0 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877C509207DECDC00832ED0 /* MainTableViewController.swift */; };
+		1877C50C207DF05D00832ED0 /* DefaultStaticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877C50B207DF05D00832ED0 /* DefaultStaticViewController.swift */; };
+		1877C50F207DFC0100832ED0 /* OneChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877C50E207DFC0100832ED0 /* OneChildViewController.swift */; };
+		18954584207F557400CE0A04 /* TwoChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18954583207F557400CE0A04 /* TwoChildViewController.swift */; };
+		18954586207F558D00CE0A04 /* ThreeChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18954585207F558D00CE0A04 /* ThreeChildViewController.swift */; };
+		18954588207F55A000CE0A04 /* FourChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18954587207F55A000CE0A04 /* FourChildViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		184B1D4C207C9ADA00C9F9F9 /* SGPagingViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGPagingViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		184B1D4F207C9ADA00C9F9F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		184B1D51207C9ADA00C9F9F9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		184B1D54207C9ADA00C9F9F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		184B1D56207C9ADA00C9F9F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		184B1D59207C9ADA00C9F9F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		184B1D5B207C9ADA00C9F9F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		184B1D64207C9B5B00C9F9F9 /* SGPageTitleViewConfigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SGPageTitleViewConfigure.swift; sourceTree = "<group>"; };
+		184B1D66207C9B7100C9F9F9 /* SGPageTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SGPageTitleView.swift; sourceTree = "<group>"; };
+		184B1D68207C9BAF00C9F9F9 /* UIView+SGPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+SGPagingView.swift"; sourceTree = "<group>"; };
+		1877C504207DA75800832ED0 /* SGPageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SGPageContentView.swift; sourceTree = "<group>"; };
+		1877C509207DECDC00832ED0 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		1877C50B207DF05D00832ED0 /* DefaultStaticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStaticViewController.swift; sourceTree = "<group>"; };
+		1877C50E207DFC0100832ED0 /* OneChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneChildViewController.swift; sourceTree = "<group>"; };
+		18954583207F557400CE0A04 /* TwoChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoChildViewController.swift; sourceTree = "<group>"; };
+		18954585207F558D00CE0A04 /* ThreeChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeChildViewController.swift; sourceTree = "<group>"; };
+		18954587207F55A000CE0A04 /* FourChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourChildViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +72,63 @@
 		184B1D4E207C9ADA00C9F9F9 /* SGPagingViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				1877C508207DECBA00832ED0 /* View */,
+				184B1D63207C9B1900C9F9F9 /* Category */,
+				184B1D62207C9B0400C9F9F9 /* SGPageContent */,
+				184B1D61207C9AF100C9F9F9 /* SGPageTitle */,
 				184B1D4F207C9ADA00C9F9F9 /* AppDelegate.swift */,
-				184B1D51207C9ADA00C9F9F9 /* ViewController.swift */,
 				184B1D53207C9ADA00C9F9F9 /* Main.storyboard */,
 				184B1D56207C9ADA00C9F9F9 /* Assets.xcassets */,
 				184B1D58207C9ADA00C9F9F9 /* LaunchScreen.storyboard */,
 				184B1D5B207C9ADA00C9F9F9 /* Info.plist */,
 			);
 			path = SGPagingViewDemo;
+			sourceTree = "<group>";
+		};
+		184B1D61207C9AF100C9F9F9 /* SGPageTitle */ = {
+			isa = PBXGroup;
+			children = (
+				184B1D64207C9B5B00C9F9F9 /* SGPageTitleViewConfigure.swift */,
+				184B1D66207C9B7100C9F9F9 /* SGPageTitleView.swift */,
+			);
+			path = SGPageTitle;
+			sourceTree = "<group>";
+		};
+		184B1D62207C9B0400C9F9F9 /* SGPageContent */ = {
+			isa = PBXGroup;
+			children = (
+				1877C504207DA75800832ED0 /* SGPageContentView.swift */,
+			);
+			path = SGPageContent;
+			sourceTree = "<group>";
+		};
+		184B1D63207C9B1900C9F9F9 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				184B1D68207C9BAF00C9F9F9 /* UIView+SGPagingView.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		1877C508207DECBA00832ED0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1877C50D207DFB5900832ED0 /* Controllers */,
+				1877C509207DECDC00832ED0 /* MainTableViewController.swift */,
+				1877C50B207DF05D00832ED0 /* DefaultStaticViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1877C50D207DFB5900832ED0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1877C50E207DFC0100832ED0 /* OneChildViewController.swift */,
+				18954583207F557400CE0A04 /* TwoChildViewController.swift */,
+				18954585207F558D00CE0A04 /* ThreeChildViewController.swift */,
+				18954587207F55A000CE0A04 /* FourChildViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,8 +203,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				184B1D52207C9ADA00C9F9F9 /* ViewController.swift in Sources */,
+				18954586207F558D00CE0A04 /* ThreeChildViewController.swift in Sources */,
+				1877C50F207DFC0100832ED0 /* OneChildViewController.swift in Sources */,
+				1877C50C207DF05D00832ED0 /* DefaultStaticViewController.swift in Sources */,
+				184B1D67207C9B7100C9F9F9 /* SGPageTitleView.swift in Sources */,
+				18954588207F55A000CE0A04 /* FourChildViewController.swift in Sources */,
+				184B1D69207C9BAF00C9F9F9 /* UIView+SGPagingView.swift in Sources */,
+				184B1D65207C9B5B00C9F9F9 /* SGPageTitleViewConfigure.swift in Sources */,
 				184B1D50207C9ADA00C9F9F9 /* AppDelegate.swift in Sources */,
+				1877C505207DA75800832ED0 /* SGPageContentView.swift in Sources */,
+				1877C50A207DECDC00832ED0 /* MainTableViewController.swift in Sources */,
+				18954584207F557400CE0A04 /* TwoChildViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

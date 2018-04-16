@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "SGPageContentView.scrollViewDidScroll(_:):SGPageContentView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "delegatePageContentView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SGPageTitleView.setupStartColor(color:):SGPageTitleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "startR">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SGPageTitleView.P_isTitleGradientEffectWithProgress(progress:originalBtn:targetBtn:):SGPageTitleView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "originalBtn.titleLabel?">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
