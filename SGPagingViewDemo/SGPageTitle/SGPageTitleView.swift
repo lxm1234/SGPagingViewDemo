@@ -41,7 +41,7 @@ class SGPageTitleView: UIView {
     /// SGPageTitleViewDelegate
     private var delegatePageTitleView: SGPageTitleViewDelegate?
     /// SGPageTitleView 配置信息
-    private var configure: SGPageTitleViewConfigure?
+    private var configure: SGPageTitleViewConfigure!
     /// scrollView
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -54,34 +54,34 @@ class SGPageTitleView: UIView {
     /// 指示器
     private lazy var indicatorView: UIView = {
         let indicatorView = UIView()
-        if self.configure!.indicatorStyle == .cover {
-            let tempIndicatorViewH = self.SG_heightWithString(string: self.btnMArr[0].currentTitle ?? "", font: self.configure!.titleFont)
-            if self.configure!.indicatorHeight > self.SG_height() {
+        if self.configure.indicatorStyle == .cover {
+            let tempIndicatorViewH = self.SG_heightWithString(string: self.btnMArr[0].currentTitle ?? "", font: self.configure.titleFont)
+            if self.configure.indicatorHeight > self.SG_height() {
                 indicatorView.setSG_y(SG_y: 0)
                 indicatorView.setSG_height(SG_height: self.SG_height())
-            } else if self.configure!.indicatorHeight < tempIndicatorViewH {
+            } else if self.configure.indicatorHeight < tempIndicatorViewH {
                 indicatorView.setSG_y(SG_y: 0.5 * (self.SG_height() - tempIndicatorViewH))
                 indicatorView.setSG_height(SG_height: tempIndicatorViewH)
             } else {
-                indicatorView.setSG_y(SG_y: 0.5 * self.SG_height() - self.configure!.indicatorHeight)
-                indicatorView.setSG_height(SG_height: self.configure!.indicatorHeight)
+                indicatorView.setSG_y(SG_y: 0.5 * self.SG_height() - self.configure.indicatorHeight)
+                indicatorView.setSG_height(SG_height: self.configure.indicatorHeight)
             }
             //圆角处理
-            if self.configure!.indicatorCornerRadius > 0.5 * indicatorView.SG_height() {
+            if self.configure.indicatorCornerRadius > 0.5 * indicatorView.SG_height() {
                 indicatorView.layer.cornerRadius = 0.5 * indicatorView.SG_height()
             } else {
-                indicatorView.layer.cornerRadius = self.configure!.indicatorCornerRadius
+                indicatorView.layer.cornerRadius = self.configure.indicatorCornerRadius
             }
             indicatorView.layer.masksToBounds = true
             // 边框宽度及边框颜色
-            indicatorView.layer.borderWidth = self.configure!.indicatorBorderWidth
-            indicatorView.layer.borderColor = self.configure!.indicatorBorderColor.cgColor
+            indicatorView.layer.borderWidth = self.configure.indicatorBorderWidth
+            indicatorView.layer.borderColor = self.configure.indicatorBorderColor.cgColor
         } else {
-            let indicatorViewH = self.configure!.indicatorHeight
+            let indicatorViewH = self.configure.indicatorHeight
             indicatorView.setSG_height(SG_height: indicatorViewH)
             indicatorView.setSG_y(SG_y: self.SG_height() - indicatorViewH)
         }
-        indicatorView.backgroundColor = self.configure!.indicatorColor
+        indicatorView.backgroundColor = self.configure.indicatorColor
         return indicatorView
     }()
     
@@ -93,7 +93,7 @@ class SGPageTitleView: UIView {
         let bottomSeparatorX :CGFloat = 0
         let bottomSeparatorY :CGFloat = self.SG_height() - bottomSeparatorH
         view.frame = CGRect.init(x: bottomSeparatorX, y: bottomSeparatorY, width: bottomSeparatorW, height: bottomSeparatorH)
-        view.backgroundColor = self.configure!.bottomSeparatorColor
+        view.backgroundColor = self.configure.bottomSeparatorColor
         return view
     }()
     /// 保存外界传递过来的标题数组
@@ -157,18 +157,18 @@ class SGPageTitleView: UIView {
     func setupTitleButtons() {
         // 计算所有按钮的文字宽度
         self.titleArr.forEach { (title) in
-            self.allBtnTextWidth += SG_widthWithString(string: title, font: self.configure!.titleFont)
+            self.allBtnTextWidth += SG_widthWithString(string: title, font: self.configure.titleFont)
         }
         // 所有按钮文字宽度 ＋ 按钮之间的间隔
-        self.allBtnWidth = self.configure!.spacingBetweenButtons * CGFloat(self.titleArr.count + 1) + self.allBtnTextWidth
+        self.allBtnWidth = self.configure.spacingBetweenButtons * CGFloat(self.titleArr.count + 1) + self.allBtnTextWidth
         self.allBtnWidth = CGFloat(ceilf(Float(self.allBtnWidth)))
         let titleCount = self.titleArr.count
         if self.allBtnWidth <= self.bounds.size.width {// SGPageTitleView 静止样式
             let btnY: CGFloat = 0
             let btnW: CGFloat = self.SG_width() / CGFloat(self.titleArr.count)
             var btnH: CGFloat = 0
-            if self.configure!.indicatorStyle == .deflt {
-                btnH = self.SG_height() - self.configure!.indicatorHeight
+            if self.configure.indicatorStyle == .deflt {
+                btnH = self.SG_height() - self.configure.indicatorHeight
             } else {
                 btnH = self.SG_height()
             }
@@ -177,41 +177,41 @@ class SGPageTitleView: UIView {
                 let btnX = btnW * CGFloat(index)
                 btn.frame = CGRect(x: btnX, y: btnY, width: btnW, height: btnH)
                 btn.tag = index
-                btn.titleLabel?.font = self.configure!.titleFont
+                btn.titleLabel?.font = self.configure.titleFont
                 btn.setTitle(self.titleArr[index], for: .normal)
-                btn.setTitleColor(self.configure!.titleColor, for: .normal)
-                btn.setTitleColor(self.configure!.titleSelectedColor, for: .selected)
+                btn.setTitleColor(self.configure.titleColor, for: .normal)
+                btn.setTitleColor(self.configure.titleSelectedColor, for: .selected)
                 btn.addTarget(self, action: #selector(P_btn_action(button:)), for: .touchUpInside)
                 self.btnMArr.append(btn)
                 self.scrollView.addSubview(btn)
-                self.setupStartColor(color: self.configure!.titleColor)
-                self.setupEndColor(color: self.configure!.titleSelectedColor)
+                self.setupStartColor(color: self.configure.titleColor)
+                self.setupEndColor(color: self.configure.titleSelectedColor)
             }
             self.scrollView.contentSize = CGSize(width: self.SG_width(), height: self.SG_height())
         } else {// SGPageTitleView 滚动样式
             var btnX: CGFloat = 0
             let btnY: CGFloat = 0
             var btnH: CGFloat = 0
-            if self.configure!.indicatorStyle == .deflt {
-                btnH = self.SG_height() - self.configure!.indicatorHeight
+            if self.configure.indicatorStyle == .deflt {
+                btnH = self.SG_height() - self.configure.indicatorHeight
             } else {
                 btnH = self.SG_height()
             }
             for index in 0..<titleCount {
                 let btn = SGPageTitleButton()
-                let btnW = self.SG_widthWithString(string: self.titleArr[index], font: self.configure!.titleFont) + self.configure!.spacingBetweenButtons
+                let btnW = self.SG_widthWithString(string: self.titleArr[index], font: self.configure.titleFont) + self.configure.spacingBetweenButtons
                 btn.frame = CGRect(x: btnX, y: btnY, width: btnW, height: btnH)
                 btnX = btnX + btnW
                 btn.tag = index
-                btn.titleLabel?.font = self.configure!.titleFont
+                btn.titleLabel?.font = self.configure.titleFont
                 btn.setTitle(self.titleArr[index], for: .normal)
-                btn.setTitleColor(self.configure!.titleColor, for: .normal)
-                btn.setTitleColor(self.configure!.titleSelectedColor, for: .selected)
+                btn.setTitleColor(self.configure.titleColor, for: .normal)
+                btn.setTitleColor(self.configure.titleSelectedColor, for: .selected)
                 btn.addTarget(self, action: #selector(P_btn_action(button:)), for: .touchUpInside)
                 self.btnMArr.append(btn)
                 self.scrollView.addSubview(btn)
-                self.setupStartColor(color: self.configure!.titleColor)
-                self.setupEndColor(color: self.configure!.titleSelectedColor)
+                self.setupStartColor(color: self.configure.titleColor)
+                self.setupEndColor(color: self.configure.titleSelectedColor)
             }
             let scrollViewWidth = self.scrollView.subviews.last?.frame.maxX
             self.scrollView.contentSize = CGSize(width: scrollViewWidth ?? 0, height: self.SG_height())
@@ -297,7 +297,7 @@ class SGPageTitleView: UIView {
         // 此处作用：避免滚动内容视图时手指不离开屏幕的前提下点击按钮后再次滚动内容视图图导致按钮文字由于文字渐变导致未选中按钮文字的不标准化处理
         if self.isTitleGradientEffect == true {
             self.btnMArr.forEach({ (button) in
-                button.titleLabel?.textColor = self.configure!.titleColor
+                button.titleLabel?.textColor = self.configure.titleColor
             })
         }
         // 标题文字缩放属性
@@ -326,15 +326,15 @@ class SGPageTitleView: UIView {
     
     //改变指示器的位置以及指示器宽度样式
     func P_changeIndicatorViewLocationWithButton(_ button: UIButton) {
-        UIView.animate(withDuration: TimeInterval(self.configure!.indicatorAnimationTime)) {
-            if self.configure!.indicatorStyle == .fixed {
-                self.indicatorView.setSG_width(SG_width: self.configure!.indicatorFixedWidth)
+        UIView.animate(withDuration: TimeInterval(self.configure.indicatorAnimationTime)) {
+            if self.configure.indicatorStyle == .fixed {
+                self.indicatorView.setSG_width(SG_width: self.configure.indicatorFixedWidth)
                 self.indicatorView.setSG_centerX(SG_centerX: button.SG_centerX())
-            } else if self.configure!.indicatorStyle == .dynamic{
-                self.indicatorView.setSG_width(SG_width: self.configure!.indicatorDynamicWidth)
+            } else if self.configure.indicatorStyle == .dynamic{
+                self.indicatorView.setSG_width(SG_width: self.configure.indicatorDynamicWidth)
                 self.indicatorView.setSG_centerX(SG_centerX: button.SG_centerX())
             } else {
-                var tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + self.SG_widthWithString(string: button.currentTitle ?? "", font: self.configure!.titleFont)
+                var tempIndicatorWidth = self.configure.indicatorAdditionalWidth + self.SG_widthWithString(string: button.currentTitle ?? "", font: self.configure.titleFont)
                 if tempIndicatorWidth > button.SG_width() {
                     tempIndicatorWidth = button.SG_width()
                 }
@@ -357,8 +357,8 @@ extension SGPageTitleView {
             let button = self.btnMArr[index]
             button.setTitle(title, for: .normal)
             if self.signBtnIndex == index {
-                if configure!.indicatorStyle == .deflt || configure!.indicatorStyle == .cover {
-                    var tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + self.SG_widthWithString(string: button.currentTitle ?? "", font: self.configure!.titleFont)
+                if configure.indicatorStyle == .deflt || configure.indicatorStyle == .cover {
+                    var tempIndicatorWidth = self.configure.indicatorAdditionalWidth + self.SG_widthWithString(string: button.currentTitle ?? "", font: self.configure.titleFont)
                     if tempIndicatorWidth > button.SG_width() {
                         tempIndicatorWidth = button.SG_width()
                     }
@@ -378,13 +378,13 @@ extension SGPageTitleView {
         self.P_selectedBtnCenter(targetButton)
         // 3、处理指示器的逻辑
         if self.allBtnWidth <= self.bounds.size.width {/// SGPageTitleView 不可滚动
-            if self.configure!.indicatorScrollStyle == .deflt {
+            if self.configure.indicatorScrollStyle == .deflt {
                 self.P_smallIndicatorScrollStyleDefault(progress: progress, originalBtn : originalButton, targetBtn: targetButton)
             } else {
                 self.P_smallIndicatorScrollStyleHalfEnd(progress: progress, originalBtn: originalButton, targetBtn: targetButton)
             }
         } else {/// SGPageTitleView 可滚动
-            if self.configure!.indicatorScrollStyle == .deflt {
+            if self.configure.indicatorScrollStyle == .deflt {
                 self.P_indicatorScrollStyleDefault(progress: progress, originalBtn: originalButton, targetBtn: targetButton)
             } else {
                 self.P_indicatorScrollStyleHalfEnd(progress: progress, originalBtn: originalButton, targetBtn: targetButton)
@@ -405,15 +405,15 @@ extension SGPageTitleView {
     
     
     func P_smallIndicatorScrollStyleHalfEnd(progress: CGFloat, originalBtn:UIButton, targetBtn:UIButton) {
-        if self.configure!.indicatorScrollStyle == .half {
-            if self.configure!.indicatorStyle == .fixed {
+        if self.configure.indicatorScrollStyle == .half {
+            if self.configure.indicatorStyle == .fixed {
                 if progress >= 0.5 {
-                    UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                    UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                         self.indicatorView.setSG_centerX(SG_centerX: targetBtn.SG_centerX())
                         self.p_changeSelectedButton(targetBtn)
                     })
                 } else {
-                    UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                    UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                         self.indicatorView.setSG_centerX(SG_centerX: originalBtn.SG_centerX())
                         self.p_changeSelectedButton(originalBtn)
                     })
@@ -422,8 +422,8 @@ extension SGPageTitleView {
             }
             /// 指示器默认样式以及遮盖样式处理
             if progress >= 0.5 {
-                let tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure!.titleFont)
-                UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                let tempIndicatorWidth = self.configure.indicatorAdditionalWidth + self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure.titleFont)
+                UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                     if tempIndicatorWidth >= targetBtn.SG_width() {
                         self.indicatorView.setSG_width(SG_width: targetBtn.SG_width())
                     } else {
@@ -433,8 +433,8 @@ extension SGPageTitleView {
                     self.p_changeSelectedButton(targetBtn)
                 })
             } else {
-                let tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + self.SG_widthWithString(string: originalBtn.currentTitle ?? "", font: self.configure!.titleFont)
-                UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                let tempIndicatorWidth = self.configure.indicatorAdditionalWidth + self.SG_widthWithString(string: originalBtn.currentTitle ?? "", font: self.configure.titleFont)
+                UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                     if tempIndicatorWidth >= targetBtn.SG_width() {
                         self.indicatorView.setSG_width(SG_width: originalBtn.SG_width())
                     } else {
@@ -447,14 +447,14 @@ extension SGPageTitleView {
             return
         }
         /// 滚动内容结束指示器处理 ____ 指示器默认样式以及遮盖样式处理
-        if self.configure!.indicatorStyle == .fixed {
+        if self.configure.indicatorStyle == .fixed {
             if progress == 1.0 {
-                UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                     self.indicatorView.setSG_centerX(SG_centerX: targetBtn.SG_centerX())
                     self.p_changeSelectedButton(targetBtn)
                 })
             } else {
-                UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                     self.indicatorView.setSG_centerX(SG_centerX: originalBtn.SG_centerX())
                     self.p_changeSelectedButton(originalBtn)
                 })
@@ -462,8 +462,8 @@ extension SGPageTitleView {
             return
         }
         if progress == 1.0 {
-            let tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure!.titleFont)
-            UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+            let tempIndicatorWidth = self.configure.indicatorAdditionalWidth + self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure.titleFont)
+            UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                 if tempIndicatorWidth >= targetBtn.SG_width() {
                     self.indicatorView.setSG_width(SG_width: targetBtn.SG_width())
                 } else {
@@ -473,8 +473,8 @@ extension SGPageTitleView {
                 self.p_changeSelectedButton(targetBtn)
             })
         } else {
-            let tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + self.SG_widthWithString(string: originalBtn.currentTitle ?? "", font: self.configure!.titleFont)
-            UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+            let tempIndicatorWidth = self.configure.indicatorAdditionalWidth + self.SG_widthWithString(string: originalBtn.currentTitle ?? "", font: self.configure.titleFont)
+            UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                 if tempIndicatorWidth >= targetBtn.SG_width() {
                     self.indicatorView.setSG_width(SG_width: originalBtn.SG_width())
                 } else {
@@ -491,43 +491,43 @@ extension SGPageTitleView {
         if progress >= 0.8 {/// 此处取 >= 0.8 而不是 1.0 为的是防止用户滚动过快而按钮的选中状态并没有改变
             self.p_changeSelectedButton(targetBtn)
         }
-        if self.configure!.indicatorStyle == .dynamic {
+        if self.configure.indicatorStyle == .dynamic {
             let originalBtnTag = originalBtn.tag
             let targetBtnTag = targetBtn.tag
             // 按钮之间的距离
             let distance = self.SG_width() / CGFloat(self.titleArr.count)
             if originalBtnTag <= targetBtnTag {// 往左滑
                 if progress <= 0.5 {
-                    self.indicatorView.setSG_width(SG_width: self.configure!.indicatorDynamicWidth + 2 * progress * distance)
+                    self.indicatorView.setSG_width(SG_width: self.configure.indicatorDynamicWidth + 2 * progress * distance)
                 } else {
-                    let targetBtnIndicatorX = targetBtn.frame.maxX - 0.5 * (distance - self.configure!.indicatorDynamicWidth) - self.configure!.indicatorDynamicWidth
+                    let targetBtnIndicatorX = targetBtn.frame.maxX - 0.5 * (distance - self.configure.indicatorDynamicWidth) - self.configure.indicatorDynamicWidth
                     self.indicatorView.setSG_x(SG_x: targetBtnIndicatorX + 2 * (progress - 1) * distance)
-                    self.indicatorView.setSG_width(SG_width: self.configure!.indicatorDynamicWidth + 2 * (1-progress)*distance)
+                    self.indicatorView.setSG_width(SG_width: self.configure.indicatorDynamicWidth + 2 * (1-progress)*distance)
                 }
             } else {
                 if progress <= 0.5 {
-                    let originalBtnIndicatorX = originalBtn.frame.maxX - 0.5 * (distance - self.configure!.indicatorDynamicWidth) - self.configure!.indicatorDynamicWidth
+                    let originalBtnIndicatorX = originalBtn.frame.maxX - 0.5 * (distance - self.configure.indicatorDynamicWidth) - self.configure.indicatorDynamicWidth
                     self.indicatorView.setSG_x(SG_x: originalBtnIndicatorX - 2 * progress * distance)
-                    self.indicatorView.setSG_width(SG_width: self.configure!.indicatorDynamicWidth + 2 * progress * distance)
+                    self.indicatorView.setSG_width(SG_width: self.configure.indicatorDynamicWidth + 2 * progress * distance)
                 } else {
-                    let targetBtnIndicatorX = targetBtn.frame.maxX - self.configure!.indicatorDynamicWidth - 0.5 * (distance - self.configure!.indicatorDynamicWidth)
+                    let targetBtnIndicatorX = targetBtn.frame.maxX - self.configure.indicatorDynamicWidth - 0.5 * (distance - self.configure.indicatorDynamicWidth)
                     self.indicatorView.setSG_x(SG_x: targetBtnIndicatorX)// 这句代码必须写，防止滚动结束之后指示器位置存在偏差，这里的偏差是由于 progress >= 0.8 导致的
-                    self.indicatorView.setSG_width(SG_width: self.configure!.indicatorDynamicWidth + 2 * (1 - progress)*distance)
+                    self.indicatorView.setSG_width(SG_width: self.configure.indicatorDynamicWidth + 2 * (1 - progress)*distance)
                 }
             }
-        } else if self.configure!.indicatorStyle == .fixed{
-            let targetBtnIndicatorX = targetBtn.frame.maxX - 0.5 * (self.SG_width()/CGFloat(self.titleArr.count) - self.configure!.indicatorFixedWidth) - self.configure!.indicatorFixedWidth
-            let originalBtnIndicatorX = originalBtn.frame.maxX - 0.5 * (self.SG_width()/CGFloat(self.titleArr.count) - self.configure!.indicatorFixedWidth) - self.configure!.indicatorFixedWidth
+        } else if self.configure.indicatorStyle == .fixed{
+            let targetBtnIndicatorX = targetBtn.frame.maxX - 0.5 * (self.SG_width()/CGFloat(self.titleArr.count) - self.configure.indicatorFixedWidth) - self.configure.indicatorFixedWidth
+            let originalBtnIndicatorX = originalBtn.frame.maxX - 0.5 * (self.SG_width()/CGFloat(self.titleArr.count) - self.configure.indicatorFixedWidth) - self.configure.indicatorFixedWidth
             let totalOffsetX = targetBtnIndicatorX - originalBtnIndicatorX
             self.indicatorView.setSG_x(SG_x: originalBtnIndicatorX + progress * totalOffsetX)
         } else {
             //1.计算indicator 偏移量
             //targetBtn 文字宽度
-            let targetBtnTextWidth = self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure!.titleFont)
-            let targetBtnIndicatorX = targetBtn.frame.maxX - targetBtnTextWidth - 0.5 * (self.SG_width()/CGFloat(self.titleArr.count) - targetBtnTextWidth + self.configure!.indicatorAdditionalWidth)
+            let targetBtnTextWidth = self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure.titleFont)
+            let targetBtnIndicatorX = targetBtn.frame.maxX - targetBtnTextWidth - 0.5 * (self.SG_width()/CGFloat(self.titleArr.count) - targetBtnTextWidth + self.configure.indicatorAdditionalWidth)
             // originBtn 文字宽度
-            let originalBtnTextWidth = self.SG_widthWithString(string: originalBtn.currentTitle ?? "", font: self.configure!.titleFont)
-            let originalBtnIndicatorX = originalBtn.frame.maxX - originalBtnTextWidth - 0.5 * (self.SG_width()/CGFloat(self.titleArr.count) - originalBtnTextWidth + self.configure!.indicatorAdditionalWidth)
+            let originalBtnTextWidth = self.SG_widthWithString(string: originalBtn.currentTitle ?? "", font: self.configure.titleFont)
+            let originalBtnIndicatorX = originalBtn.frame.maxX - originalBtnTextWidth - 0.5 * (self.SG_width()/CGFloat(self.titleArr.count) - originalBtnTextWidth + self.configure.indicatorAdditionalWidth)
             let totalOffsetX = targetBtnIndicatorX - originalBtnIndicatorX
             ///2.计算文字之间的差值
             //按钮宽度的距离
@@ -544,7 +544,7 @@ extension SGPageTitleView {
             /// 3、计算 indicatorView 新的 frame
             self.indicatorView.setSG_x(SG_x: originalBtnIndicatorX + offsetX)
             
-            let tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + originalBtnTextWidth + distance
+            let tempIndicatorWidth = self.configure.indicatorAdditionalWidth + originalBtnTextWidth + distance
             
             if tempIndicatorWidth >= targetBtn.SG_width() {
                 let moveTotalX = targetBtn.SG_origin().x - originalBtn.SG_origin().x
@@ -561,35 +561,35 @@ extension SGPageTitleView {
         if progress >= 0.8 {/// 此处取 >= 0.8 而不是 1.0 为的是防止用户滚动过快而按钮的选中状态并没有改变
             self.p_changeSelectedButton(targetBtn)
         }
-        if self.configure!.indicatorStyle == .dynamic {
+        if self.configure.indicatorStyle == .dynamic {
             let originalBtnTag = originalBtn.tag
             let targetBtnTag = targetBtn.tag
             if originalBtnTag <= targetBtnTag {// 往左滑
                 // targetBtn 与 originalBtn 中心点之间的距离
                 let btnCenterXDistance = targetBtn.SG_centerX() - originalBtn.SG_centerX()
                 if progress <= 0.5 {
-                    self.indicatorView.setSG_width(SG_width: 2 * progress * btnCenterXDistance + self.configure!.indicatorDynamicWidth)
+                    self.indicatorView.setSG_width(SG_width: 2 * progress * btnCenterXDistance + self.configure.indicatorDynamicWidth)
                 } else {
-                    let targetBtnX = targetBtn.frame.maxX - self.configure!.indicatorDynamicWidth - 0.5 * (targetBtn.SG_width() - self.configure!.indicatorDynamicWidth)
+                    let targetBtnX = targetBtn.frame.maxX - self.configure.indicatorDynamicWidth - 0.5 * (targetBtn.SG_width() - self.configure.indicatorDynamicWidth)
                     self.indicatorView.setSG_x(SG_x: targetBtnX + 2 * (progress - 1) * btnCenterXDistance)
-                    self.indicatorView.setSG_width(SG_width: 2 * (1 - progress) * btnCenterXDistance + self.configure!.indicatorDynamicWidth)
+                    self.indicatorView.setSG_width(SG_width: 2 * (1 - progress) * btnCenterXDistance + self.configure.indicatorDynamicWidth)
                 }
             } else {
                 // originalBtn 与 targetBtn 中心点之间的距离
                 let btnCenterXDistance = originalBtn.SG_centerX() - targetBtn.SG_centerX()
                 if progress <= 0.5 {
-                    let originalBtnX = originalBtn.frame.maxX - self.configure!.indicatorDynamicWidth - 0.5 * (originalBtn.SG_width() - self.configure!.indicatorDynamicWidth)
+                    let originalBtnX = originalBtn.frame.maxX - self.configure.indicatorDynamicWidth - 0.5 * (originalBtn.SG_width() - self.configure.indicatorDynamicWidth)
                     self.indicatorView.setSG_x(SG_x: originalBtnX - 2 * progress * btnCenterXDistance)
-                    self.indicatorView.setSG_width(SG_width: 2 * progress * btnCenterXDistance + self.configure!.indicatorDynamicWidth )
+                    self.indicatorView.setSG_width(SG_width: 2 * progress * btnCenterXDistance + self.configure.indicatorDynamicWidth )
                 } else {
-                    let targetBtnX = targetBtn.frame.maxX - self.configure!.indicatorDynamicWidth - 0.5 * (targetBtn.SG_width() - self.configure!.indicatorDynamicWidth)
+                    let targetBtnX = targetBtn.frame.maxX - self.configure.indicatorDynamicWidth - 0.5 * (targetBtn.SG_width() - self.configure.indicatorDynamicWidth)
                     self.indicatorView.setSG_x(SG_x: targetBtnX)
-                    self.indicatorView.setSG_width(SG_width: 2 * (1 - progress) * btnCenterXDistance + self.configure!.indicatorDynamicWidth)
+                    self.indicatorView.setSG_width(SG_width: 2 * (1 - progress) * btnCenterXDistance + self.configure.indicatorDynamicWidth)
                 }
             }
-        } else if self.configure!.indicatorStyle == .fixed {
-            let targetBtnIndicatorX = targetBtn.frame.maxX - 0.5 * (targetBtn.SG_width() - self.configure!.indicatorFixedWidth) - self.configure!.indicatorFixedWidth
-            let originalBtnIndicatorX = originalBtn.frame.maxX - self.configure!.indicatorFixedWidth - 0.5 * (originalBtn.SG_width() - self.configure!.indicatorFixedWidth)
+        } else if self.configure.indicatorStyle == .fixed {
+            let targetBtnIndicatorX = targetBtn.frame.maxX - 0.5 * (targetBtn.SG_width() - self.configure.indicatorFixedWidth) - self.configure.indicatorFixedWidth
+            let originalBtnIndicatorX = originalBtn.frame.maxX - self.configure.indicatorFixedWidth - 0.5 * (originalBtn.SG_width() - self.configure.indicatorFixedWidth)
             let totalOffsetX = targetBtnIndicatorX - originalBtnIndicatorX
             let offsetX = totalOffsetX * progress
             self.indicatorView.setSG_x(SG_x: originalBtnIndicatorX + offsetX)
@@ -603,32 +603,32 @@ extension SGPageTitleView {
             /// 计算 indicatorView 滚动时宽度的偏移量
             var distance :CGFloat = 0.0
             
-            let targetBtnTextWidth = self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure!.titleFont)
-            let tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + targetBtnTextWidth
+            let targetBtnTextWidth = self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure.titleFont)
+            let tempIndicatorWidth = self.configure.indicatorAdditionalWidth + targetBtnTextWidth
             if tempIndicatorWidth >= targetBtn.SG_width() {
                 offsetX = totalOffsetX * progress
                 distance = progress * (totalDistance - totalOffsetX)
                 self.indicatorView.setSG_x(SG_x: originalBtn.SG_origin().x + offsetX)
                 self.indicatorView.setSG_width(SG_width: originalBtn.SG_width() + distance)
             } else {
-                offsetX = totalOffsetX * progress + 0.5 * self.configure!.spacingBetweenButtons - 0.5 * self.configure!.indicatorAdditionalWidth
-                distance = progress * (totalDistance - totalOffsetX) - self.configure!.spacingBetweenButtons
+                offsetX = totalOffsetX * progress + 0.5 * self.configure.spacingBetweenButtons - 0.5 * self.configure.indicatorAdditionalWidth
+                distance = progress * (totalDistance - totalOffsetX) - self.configure.spacingBetweenButtons
                 self.indicatorView.setSG_x(SG_x: originalBtn.SG_origin().x + offsetX)
-                self.indicatorView.setSG_width(SG_width: originalBtn.SG_width() + distance + self.configure!.indicatorAdditionalWidth)
+                self.indicatorView.setSG_width(SG_width: originalBtn.SG_width() + distance + self.configure.indicatorAdditionalWidth)
             }
         }
     }
     
     func P_indicatorScrollStyleHalfEnd(progress: CGFloat, originalBtn:UIButton, targetBtn:UIButton)  {
-        if self.configure!.indicatorScrollStyle == .half {
-            if self.configure!.indicatorStyle == .fixed {
+        if self.configure.indicatorScrollStyle == .half {
+            if self.configure.indicatorStyle == .fixed {
                 if progress >= 0.5 {
-                    UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                    UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                         self.indicatorView.setSG_centerX(SG_centerX: targetBtn.SG_centerX())
                         self.p_changeSelectedButton(targetBtn)
                     })
                 } else {
-                    UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                    UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                         self.indicatorView.setSG_centerX(SG_centerX: originalBtn.SG_centerX())
                         self.p_changeSelectedButton(originalBtn)
                     })
@@ -637,8 +637,8 @@ extension SGPageTitleView {
             }
             /// 指示器默认样式以及遮盖样式处理
             if progress >= 0.5 {
-                let tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure!.titleFont)
-                UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                let tempIndicatorWidth = self.configure.indicatorAdditionalWidth + self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure.titleFont)
+                UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                     if tempIndicatorWidth >= targetBtn.SG_width() {
                         self.indicatorView.setSG_width(SG_width: targetBtn.SG_width())
                     } else {
@@ -648,8 +648,8 @@ extension SGPageTitleView {
                     self.p_changeSelectedButton(targetBtn)
                 })
             } else {
-                let tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + self.SG_widthWithString(string: originalBtn.currentTitle ?? "", font: self.configure!.titleFont)
-                UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                let tempIndicatorWidth = self.configure.indicatorAdditionalWidth + self.SG_widthWithString(string: originalBtn.currentTitle ?? "", font: self.configure.titleFont)
+                UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                     if tempIndicatorWidth >= targetBtn.SG_width() {
                         self.indicatorView.setSG_width(SG_width: originalBtn.SG_width())
                     } else {
@@ -662,14 +662,14 @@ extension SGPageTitleView {
             return
         }
         /// 滚动内容结束指示器处理 ____ 指示器默认样式以及遮盖样式处理
-        if self.configure!.indicatorStyle == .fixed {
+        if self.configure.indicatorStyle == .fixed {
             if progress == 1.0 {
-                UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                     self.indicatorView.setSG_centerX(SG_centerX: targetBtn.SG_centerX())
                     self.p_changeSelectedButton(targetBtn)
                 })
             } else {
-                UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+                UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                     self.indicatorView.setSG_centerX(SG_centerX: originalBtn.SG_centerX())
                     self.p_changeSelectedButton(originalBtn)
                 })
@@ -677,8 +677,8 @@ extension SGPageTitleView {
             return
         }
         if progress == 1.0 {
-            let tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure!.titleFont)
-            UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+            let tempIndicatorWidth = self.configure.indicatorAdditionalWidth + self.SG_widthWithString(string: targetBtn.currentTitle ?? "", font: self.configure.titleFont)
+            UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                 if tempIndicatorWidth >= targetBtn.SG_width() {
                     self.indicatorView.setSG_width(SG_width: targetBtn.SG_width())
                 } else {
@@ -688,8 +688,8 @@ extension SGPageTitleView {
                 self.p_changeSelectedButton(targetBtn)
             })
         } else {
-            let tempIndicatorWidth = self.configure!.indicatorAdditionalWidth + self.SG_widthWithString(string: originalBtn.currentTitle ?? "", font: self.configure!.titleFont)
-            UIView.animate(withDuration: self.configure!.indicatorAnimationTime, animations: {
+            let tempIndicatorWidth = self.configure.indicatorAdditionalWidth + self.SG_widthWithString(string: originalBtn.currentTitle ?? "", font: self.configure.titleFont)
+            UIView.animate(withDuration: self.configure.indicatorAnimationTime, animations: {
                 if tempIndicatorWidth >= targetBtn.SG_width() {
                     self.indicatorView.setSG_width(SG_width: originalBtn.SG_width())
                 } else {
